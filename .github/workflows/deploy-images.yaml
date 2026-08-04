@@ -1,4 +1,4 @@
-name: Deploy Image
+name: Deploy docker images
 
 on:
   workflow_dispatch: 
@@ -19,6 +19,22 @@ jobs:
           docker login -u coderookieerick -p ${{ secrets.DOCKER_HUB }}
           docker tag agent-scratch coderookieerick/attoci:agent-scratch
           docker push coderookieerick/attoci:agent-scratch
+
+  build-alpine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Deploy alpine image
+        run: |
+          docker build --target agent-alpine -t agent-alpine -f src/agent/Dockerfile src/agent
+          docker login -u coderookieerick -p ${{ secrets.DOCKER_HUB }}
+          docker tag agent-alpine coderookieerick/attoci:agent-alpine
+          docker push coderookieerick/attoci:agent-alpine
 
   build-golang:
     runs-on: ubuntu-latest

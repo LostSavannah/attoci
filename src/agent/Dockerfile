@@ -27,6 +27,20 @@ ENV ATTOCI_AGENT_TYPE="coderookieerick/attoci:agent-scratch"
 
 ENTRYPOINT [ "/app/agent" ]
 
+FROM alpine AS agent-alpine
+
+WORKDIR /app
+
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /app/agent .
+
+ENV ATTOCI_URL="http://host.docker.internal:8089"
+ENV ATTOCI_API_KEY="12345678"
+ENV ATTOCI_AGENT_ID="test-agent"
+ENV ATTOCI_AGENT_TYPE="coderookieerick/attoci:agent-scratch"
+
+ENTRYPOINT [ "/app/agent" ]
+
 FROM golang:alpine AS agent-golang
 
 WORKDIR /app
