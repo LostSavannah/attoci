@@ -17,13 +17,6 @@ def build_router() -> APIRouter:
                 {
                     "Name": "initial",
                     "Commands": [
-                        "echo import time > script.py",
-                        "echo for i in range(5): >> script.py",
-                        "echo   print(f'{i} listening...', flush=True) >> script.py",
-                        "echo   time.sleep(i) >> script.py",
-                        #"echo raise Exception() >> script.py",
-                        "py script.py",
-                        "del script.py",
                         "echo hola",
                     ]
                 }
