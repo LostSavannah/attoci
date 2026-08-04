@@ -3,6 +3,7 @@ package core
 import (
 	"bufio"
 	"os/exec"
+	"runtime"
 )
 
 type CommandOutput struct {
@@ -36,7 +37,13 @@ func Output(text string) CommandOutput {
 }
 
 func RunCommand(command string, callback func(CommandOutput)) {
-	cmd := exec.Command("sh", "-c", command)
+	var cmd *exec.Cmd
+	switch runtime.GOOS {
+	case "windows":
+		cmd = exec.Command("cmd", "/C", command)
+	case "linux":
+		cmd = exec.Command("sh", "-c", command)
+	}
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		callback(Error(err.Error()))

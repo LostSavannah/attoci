@@ -1,7 +1,7 @@
 
 def run():
     from fastapi import FastAPI, Request, Response
-    from routers import agents_router, jobs_router
+    from routers import requests_router, jobs_router
     import uvicorn, os, uuid
 
     app = FastAPI()
@@ -21,7 +21,7 @@ def run():
             return Response("Unauthorized", 401)
         return await call_next(req)
 
-    app.include_router(agents_router.build_router(), prefix="/api/agents")
+    app.include_router(requests_router.build_router(), prefix="/api/requests")
     app.include_router(jobs_router.build_router(), prefix="/api/jobs")
 
     print("Server running...")

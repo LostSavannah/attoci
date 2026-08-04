@@ -1,10 +1,16 @@
 from fastapi import APIRouter
 
 def build_router() -> APIRouter:
+    from pydantic import BaseModel
+    class JobRequest(BaseModel):
+        AgentId: str
+        AgentType: str
+
+    
     router = APIRouter()
 
-    @router.get("/{agent_id}/current-job")
-    def get_agent_current_job(agent_id:str):
+    @router.post("/job")
+    def request_job(request:JobRequest):
         return {
             "JobId": "!23123141342",
             "Steps": [

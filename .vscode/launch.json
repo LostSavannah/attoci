@@ -5,15 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
+            "name": "Launch manager",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder}/src/manager/main.py",
             "console": "integratedTerminal",
             "env": {
                 "ATTOCI_DB_MIGRATIONS_PATH": "${workspaceFolder}/src/manager/data/migrations",
                 "ATTOCI_DB_DATABASES_PATH": "${workspaceFolder}/src/manager/data/databases",
                 "ATTOCI_DB_JSON_PATH": "${workspaceFolder}/src/manager/data/json",
+                "ATTOCI_API_LOG_LEVEL": "INFO",
             }
         },
         {
@@ -26,6 +27,7 @@
                 "ATTOCI_URL": "http://localhost:8089",
                 "ATTOCI_API_KEY": "12345678",
                 "ATTOCI_AGENT_ID": "atc_2049812650912364613541234",
+                "ATTOCI_AGENT_TYPE": "debug"
             }
         },
         {
@@ -37,7 +39,8 @@
             "env": {
                 "ATTOCI_URL": "http://localhost:8089",
                 "ATTOCI_API_KEY": "12345678",
-                "ATTOCI_AGENT_ID": "atc_2049812650912364613541234",
+            "ATTOCI_AGENT_ID": "atc_2049812650912364613541234",
+                "ATTOCI_AGENT_TYPE": "debug"
             }
         }
     ]
