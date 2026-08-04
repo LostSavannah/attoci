@@ -1,0 +1,74 @@
+{
+    "name": "Example Workflow",
+    "triggers":{
+        "events":[
+            {
+                "source_type": "HTTP:POST",
+                "source_path": "",
+                "headers":[
+                    {
+                        "name": "x-api-key",
+                        "condition": " = '32'"
+                    }
+                ],
+                "body":[
+                    {
+                        "selector": "",
+                        "selector_type": "jsonpath",
+                        "condition": " = '33'"
+                    }
+                ]
+            }
+        ],
+        "crons": [
+            "* * * * *",
+            "4 * * * *"
+        ]
+    },
+    "jobs":[
+        {
+            "name": "example-job",        
+            "runner": "docker:ubuntu:latest",
+            "steps":[
+                {
+                    "name": "example-step-1",
+                    "includes":[
+                        {
+                            "name": "reused-step-1",
+                            "arguments":[
+                                {"name": "ARGUMENT", "value": "VALUE"}
+                            ]
+                        }
+                    ],
+                    "commands": []
+                },
+                {
+                    "name": "example-step-2",
+                    "includes":[],
+                    "commands": [
+                        "ls"
+                    ]
+                }
+            ],
+            "requires":[
+                {
+                    "job": "initial-job",
+                    "success": true
+                }
+            ]
+        },
+        {
+            "name": "initial-job",        
+            "runner": "docker:ubuntu:latest",
+            "steps":[
+                {
+                    "name": "example-initial-step",
+                    "includes":[],
+                    "commands": [
+                        "ls"
+                    ]
+                }
+            ]
+        }
+    ]
+}

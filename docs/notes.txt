@@ -1,0 +1,23 @@
+workflow
+    job
+        step
+
+api
+    receives events
+        triggers workflows by event
+    exposes current job per agent
+
+agent
+    process jobs
+
+crontab activity
+    triggers workflows by crontab
+    issues workflow triggered event
+
+job_scheduler
+    converts pending workflows into ready jobs trees (instance id)
+    issues instance ready event
+
+job_dispatcher
+    assigns pending jobs to agents
+    issues job assigned event

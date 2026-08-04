@@ -1,0 +1,25 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:2.44.0-alpine
+    hostname: portainer
+    ports:
+      - 9000:9000
+      - 9443:9443
+    restart: unless-stopped
+    volumes:
+      - portainer_data:/data
+
+  dind:
+    image: docker:dind
+    hostname: dind
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=
+    command: ["--tls=false"]
+    volumes:
+      - docker_data:/var/lib/docker
+
+volumes:
+  portainer_data:
+  docker_data:

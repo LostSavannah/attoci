@@ -1,0 +1,14 @@
+{
+    "name": "reused-step-1",
+    "arguments":[
+        {
+            "name": "ARGUMENT", 
+            "required": false,
+            "default": "VALUE"
+        }
+    ],
+    "commands":[
+        "ls",
+        "echo ${{args.ARGUMENT}}"
+    ]
+}
